@@ -21,6 +21,9 @@ module "eks" {
             desired_size = 2
 
             instance_types = ["t2.small"]
+
+            # Use the default Amazon EKS optimized AMI for AL2 (Amazon Linux 2)
+            ami_type = "AL2_x86_64"  # Use the AL2 Amazon Linux 2 AMI (this is for EKS version 1.24)
         }
     }
 }
