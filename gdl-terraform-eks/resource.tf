@@ -45,12 +45,14 @@ resource "aws_iam_policy" "eks_policy" {
 
 # Fetch the IAM user to whom the policy will be attached
 resource "aws_iam_user" "eks_user" {
+  count = length(data.aws_iam_user.existing_user.id) == 0 ? 1 : 0
   name = "gautam.limbani"
 }
 
 # Attach the policy to the IAM user
 resource "aws_iam_policy_attachment" "eks_policy_attachment" {
-  name       = "eks-policy-attachment"
-  users      = [aws_iam_user.eks_user.name]
+  count = length(data.aws_iam_user.existing_user.id) > 0 || length(aws_iam_user.eks_user) > 0 ? 1 : 0
+  name       = "gdl-eks-policy-attachment"
+  users      = [length(data.aws_iam_user.existing_user.id) > 0 ? data.aws_iam_user.existing_user.user_name : aws_iam_user.eks_user[0].name]
   policy_arn = aws_iam_policy.eks_policy.arn
 }
