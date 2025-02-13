@@ -35,6 +35,12 @@ resource "aws_iam_policy" "eks_policy" {
       }
 	  ]
   })
+  tags = {
+    Environment = "development"
+    Application = "eks-cluster"
+    CreatedBy  = "Gautam Limbani"
+    PolicyAttachment = "eks-policy-attachment"
+  }
 }
 
 # Fetch the IAM user to whom the policy will be attached

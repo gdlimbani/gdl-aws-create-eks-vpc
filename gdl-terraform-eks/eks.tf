@@ -10,8 +10,9 @@ module "eks" {
     subnet_ids = module.my-vpc.private_subnets
 
     tags = {
-        environment = "development"
-        application = "nginx-app"
+        Environment = "development"
+        Application = "nginx-app"
+        CreatedBy = "Gautam Limbani"
     }
 
     eks_managed_node_groups = {
