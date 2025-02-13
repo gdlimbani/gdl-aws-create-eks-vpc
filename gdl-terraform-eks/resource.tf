@@ -1,6 +1,6 @@
 # Define the IAM Policy
 resource "aws_iam_policy" "eks_policy" {
-  name        = "gdl-eks-policy"
+  name        = "${var.policy_name}"
   description = "EKS Policy for creating node groups and related permissions"
   policy      = jsonencode({
     Version = "2012-10-17"
@@ -38,7 +38,7 @@ resource "aws_iam_policy" "eks_policy" {
   tags = {
     Environment = "development"
     Application = "eks-cluster"
-    CreatedBy  = "Gautam Limbani"
+    CreatedBy  = "${var.resource_created_by}"
     PolicyAttachment = "eks-policy-attachment"
   }
 }
@@ -46,13 +46,13 @@ resource "aws_iam_policy" "eks_policy" {
 # Fetch the IAM user to whom the policy will be attached
 resource "aws_iam_user" "eks_user" {
   count = length(data.aws_iam_user.existing_user.id) == 0 ? 1 : 0
-  name = "gautam.limbani"
+  name = "${var.user_name}"
 }
 
 # Attach the policy to the IAM user
 resource "aws_iam_policy_attachment" "eks_policy_attachment" {
   count = length(data.aws_iam_user.existing_user.id) > 0 || length(aws_iam_user.eks_user) > 0 ? 1 : 0
-  name       = "gdl-eks-policy-attachment"
+  name       = "${var.env_prefix}-eks-policy-attachment"
   users      = [length(data.aws_iam_user.existing_user.id) > 0 ? data.aws_iam_user.existing_user.user_name : aws_iam_user.eks_user[0].name]
   policy_arn = aws_iam_policy.eks_policy.arn
 }

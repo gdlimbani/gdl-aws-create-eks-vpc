@@ -1,8 +1,8 @@
 module "eks" {
     source  = "terraform-aws-modules/eks/aws"
     version = "~> 19.0"
-    cluster_name = "gdl-eks-cluster"
-    cluster_version = "1.24"
+    cluster_name = "${var.cluster_name}"
+    cluster_version = "${var.cluster_version}"
 
     cluster_endpoint_public_access  = true
 
@@ -12,7 +12,7 @@ module "eks" {
     tags = {
         Environment = "development"
         Application = "nginx-app"
-        CreatedBy = "Gautam Limbani"
+        CreatedBy = "${var.resource_created_by}"
     }
 
     eks_managed_node_groups = {

@@ -1,3 +1,12 @@
 variable "vpc_cidr_block" {}
 variable "private_subnet_cidr_blocks" {}
 variable "public_subnet_cidr_blocks" {}
+variable "env_prefix" {}
+variable "user_name" {}
+variable "region" {}
+variable "bucket" {}
+variable "key_eks_terraform_file_state" {}
+variable "cluster_name" {}
+variable "cluster_version" {}
+variable "resource_created_by" {}
+variable "policy_name" {}
