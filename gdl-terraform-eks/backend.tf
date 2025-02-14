@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
-    bucket = "${var.bucket}"
-    region = "${var.region}"
-    key = "${var.key_eks_terraform_file_state}"
+    bucket = "gdl-jenkins-app-kub-2025-v2"
+    region = "ap-south-1"
+    key = "eks/gdl-terraform.tfstate"
   }
 }
