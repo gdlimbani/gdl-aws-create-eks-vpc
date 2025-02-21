@@ -17,5 +17,16 @@ pipeline {
                 }
             }
         }
+        stage("Deploy to EKS") {
+            steps {
+                script {
+                    dir('kubernetes') {
+                        bat "aws eks update-kubeconfig --name gdl-eks-cluster"
+                        bat "kubectl apply -f nginx-deployment.yaml"
+                        bat "kubectl apply -f nginx-service.yaml"
+                    }
+                }
+            }
+        }
     }
 }
