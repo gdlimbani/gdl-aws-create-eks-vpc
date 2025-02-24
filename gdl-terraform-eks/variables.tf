@@ -6,3 +6,7 @@ variable "region" {}
 variable "cluster_name" {}
 variable "cluster_version" {}
 variable "resource_created_by" {}
+variable "vpc_name" {}
+variable "role_name" {}
+variable "eks_node_group" {}
+variable "eks_node_instance_type" {}
