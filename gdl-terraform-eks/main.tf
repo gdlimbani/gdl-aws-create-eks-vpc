@@ -111,7 +111,7 @@ resource "aws_eks_node_group" "example" {
     min_size     = 1
   }
 
-  instance_types = ["t3.medium"]
+  instance_types = ["${var.eks_node_instance_type}"]
   ami_type = "AL2_x86_64"  # Use the AL2 Amazon Linux 2 AMI (this is for EKS version 1.24)
 
   tags = {
