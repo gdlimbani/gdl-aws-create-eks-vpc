@@ -11,7 +11,7 @@ pipeline {
             steps {
                 script {
                     dir('gdl-terraform-eks') {
-                        bat "terraform init"
+                        bat "terraform init -migrate-state"
                         bat "terraform apply -auto-approve"
                     }
                 }
